@@ -182,7 +182,7 @@ class VocationalTest {
 
     saveToDatabase(data) {
         // Aquí se envía a tu API de Vercel
-        const apiUrl = 'https://test-vocacional-familibrev2.vercel.app'; // Cambiar por tu URL
+        const apiUrl = 'https://test-vocacional-familibrev2.vercel.app/api/register'; // Cambiar por tu URL
         
         fetch(apiUrl, {
             method: 'POST',
