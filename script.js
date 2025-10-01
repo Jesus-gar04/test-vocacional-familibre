@@ -256,7 +256,7 @@ class VocationalTest {
             2: 'Poco',
             3: 'Neutral',
             4: 'Interesado',
-            5: 'Muy'
+            5: 'Muy interesado'
         };
         return texts[rating];
     }

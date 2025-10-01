@@ -55,7 +55,7 @@ const TestConfig = {
     
     // API Configuration (cambiar por tu URL de Vercel)
     api: {
-        baseUrl: 'https://tu-proyecto.vercel.app',
+        baseUrl: 'https://test-vocacional-familibrev2.vercel.app',
         endpoints: {
             register: '/api/register',
             saveResults: '/api/results'
