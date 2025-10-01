@@ -1,0 +1,24 @@
+{
+  "name": "test-vocacional-unilibre",
+  "version": "1.0.0",
+  "description": "Test Vocacional - Universidad Libre Programa Familibre",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "test",
+    "vocacional",
+    "universidad",
+    "libre"
+  ],
+  "author": "Universidad Libre Familibre",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.20.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
