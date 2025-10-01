@@ -20,7 +20,7 @@ async function connectToDatabase() {
         useUnifiedTopology: true,
     });
 
-    const db = client.db('Familibre'); // Nombre de la base de datos
+    const db = client.db('familibre_test'); // Nombre de la base de datos
     
     cachedClient = client;
     cachedDb = db;
@@ -92,5 +92,4 @@ module.exports = async (req, res) => {
             message: 'No se pudo guardar el registro. Por favor intenta nuevamente.'
         });
     }
-
 };
