@@ -20,7 +20,7 @@ async function connectToDatabase() {
         useUnifiedTopology: true,
     });
 
-    const db = client.db('Project 0'); // Nombre de la base de datos
+    const db = client.db('Familibre'); // Nombre de la base de datos
     
     cachedClient = client;
     cachedDb = db;
