@@ -1,165 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Proyecto de Vida - Universidad Libre</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'libre-red': '#DC2626',
-                        'libre-black': '#1F2937',
-                        'familibre-light': '#87CEEB',
-                        'familibre-dark': '#1E3A8A'
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Proyecto de Vida - Familibre</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-inter bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+<body class="bg-gray-100 font-sans leading-relaxed">
 
-    <!-- ETAPA 1 -->
-    <div id="etapa-1" class="min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
-            <div class="mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-libre-red">Etapa 1 de 4</h2>
-                    <div class="text-sm text-gray-600">Pregunta <span id="q1-num">1</span> de 5</div>
-                </div>
-                <div class="bg-gray-200 rounded-full h-2 mb-4">
-                    <div id="progress-1" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
-                </div>
-                <h3 class="text-xl font-bold text-libre-black mb-2">CONOZCO LAS DIMENSIONES DEL SER HUMANO Y LAS POTENCIALIZO</h3>
-                <p class="text-gray-600 text-sm">Reflexiona sobre tu bienestar integral en cada dimensión</p>
-            </div>
+  <div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg mt-6">
+    <h1 class="text-3xl font-bold text-center text-red-600 mb-6">Proyecto de Vida</h1>
 
-            <div id="questions-etapa-1"></div>
+    <!-- ================= ETAPA 1 ================= -->
+    <div id="etapa1">
+      <h2 class="text-2xl font-semibold text-blue-700 mb-4">Etapa 1: Autoconocimiento y Bienestar Integral</h2>
+      <p class="mb-4 text-gray-700">
+        <strong>Objetivo del seguimiento:</strong> Acompañar el proceso de autoconocimiento y fortalecimiento de habilidades personales, promoviendo la reflexión sobre el bienestar integral.
+      </p>
+      <ul class="list-disc ml-6 mb-6 text-gray-600">
+        <li>Diario de bienestar</li>
+        <li>Encuentros de grupo</li>
+        <li>Retroalimentación individual</li>
+        <li>Autoevaluación</li>
+        <li>Expresión creativa</li>
+      </ul>
 
-            <div class="flex justify-between mt-8">
-                <button onclick="window.location.href='index.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
-                    Volver al Inicio
-                </button>
-                <button id="next-1" onclick="nextQuestion(1)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl ml-auto">
-                    Siguiente
-                </button>
-            </div>
+      <!-- Preguntas -->
+      <div class="mb-6">
+        <p class="font-semibold text-libre-black">1. Dimensión Física</p>
+        <p class="mb-2">¿Con qué frecuencia realizas actividad física durante la semana?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et1-q1"> Nunca</label><br>
+          <label><input type="radio" name="et1-q1"> 1 vez por semana</label><br>
+          <label><input type="radio" name="et1-q1"> 2 a 3 veces por semana</label><br>
+          <label><input type="radio" name="et1-q1"> 4 a 5 veces por semana</label><br>
+          <label><input type="radio" name="et1-q1"> Todos los días</label>
         </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold">2. Dimensión Emocional</p>
+        <p class="mb-2">¿Qué tan capaz te consideras de manejar el estrés o las emociones intensas?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et1-q2"> Muy incapaz</label><br>
+          <label><input type="radio" name="et1-q2"> Poco capaz</label><br>
+          <label><input type="radio" name="et1-q2"> Medianamente capaz</label><br>
+          <label><input type="radio" name="et1-q2"> Capaz</label><br>
+          <label><input type="radio" name="et1-q2"> Muy capaz</label>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold">3. Dimensión Social</p>
+        <p class="mb-2">¿Qué tan seguido compartes tiempo con tus amigos o familia?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et1-q3"> Nunca</label><br>
+          <label><input type="radio" name="et1-q3"> 1 vez al mes</label><br>
+          <label><input type="radio" name="et1-q3"> 1 vez por semana</label><br>
+          <label><input type="radio" name="et1-q3"> Varias veces por semana</label><br>
+          <label><input type="radio" name="et1-q3"> Todos los días</label>
+        </div>
+      </div>
     </div>
 
-    <!-- ETAPA 2 -->
-    <div id="etapa-2" class="hidden min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
-            <div class="mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-libre-red">Etapa 2 de 4</h2>
-                    <div class="text-sm text-gray-600">Pregunta <span id="q2-num">1</span> de 2</div>
-                </div>
-                <div class="bg-gray-200 rounded-full h-2 mb-4">
-                    <div id="progress-2" class="bg-libre-red h-2 rounded-full transition-all" style="width: 50%"></div>
-                </div>
-                <h3 class="text-xl font-bold text-libre-black mb-2">IDENTIFICO MIS BARRERAS</h3>
-                <p class="text-gray-600 text-sm">Reconoce los obstáculos y desarrolla estrategias de afrontamiento</p>
-            </div>
+    <!-- ================= ETAPA 2 ================= -->
+    <div id="etapa2" class="mt-10">
+      <h2 class="text-2xl font-semibold text-blue-700 mb-4">Etapa 2: Definición de Metas Académicas y Profesionales</h2>
+      <p class="mb-4 text-gray-700">
+        <strong>Objetivo del seguimiento:</strong> Orientar al estudiante en la definición de metas académicas y profesionales claras, realistas y alcanzables, alineadas con sus intereses y habilidades.
+      </p>
+      <ul class="list-disc ml-6 mb-6 text-gray-600">
+        <li>Mapa de metas</li>
+        <li>Plan de acción</li>
+        <li>Seguimiento mensual</li>
+        <li>Role-play</li>
+        <li>Entrevistas motivacionales</li>
+      </ul>
 
-            <div id="questions-etapa-2"></div>
-
-            <div class="flex justify-between mt-8">
-                <button id="prev-2" onclick="prevStage(2)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
-                    Anterior
-                </button>
-                <button id="next-2" onclick="nextQuestion(2)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl">
-                    Siguiente
-                </button>
-            </div>
+      <!-- Preguntas -->
+      <div class="mb-6">
+        <p class="font-semibold">1. ¿Tienes definida la carrera o área profesional que deseas seguir?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et2-q1"> Sí, totalmente</label><br>
+          <label><input type="radio" name="et2-q1"> Tengo algunas opciones</label><br>
+          <label><input type="radio" name="et2-q1"> Estoy indeciso</label><br>
+          <label><input type="radio" name="et2-q1"> No lo he pensado</label>
         </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold">2. ¿Qué tan realistas consideras tus metas académicas?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et2-q2"> Muy realistas</label><br>
+          <label><input type="radio" name="et2-q2"> Realistas</label><br>
+          <label><input type="radio" name="et2-q2"> Poco realistas</label><br>
+          <label><input type="radio" name="et2-q2"> Nada realistas</label>
+        </div>
+      </div>
     </div>
 
-    <!-- ETAPA 3 -->
-    <div id="etapa-3" class="hidden min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
-            <div class="mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-libre-red">Etapa 3 de 4</h2>
-                    <div class="text-sm text-gray-600">Pregunta <span id="q3-num">1</span> de 5</div>
-                </div>
-                <div class="bg-gray-200 rounded-full h-2 mb-4">
-                    <div id="progress-3" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
-                </div>
-                <h3 class="text-xl font-bold text-libre-black mb-2">CONSTRUYO MI PLAN</h3>
-                <p class="text-gray-600 text-sm">Planifica tus metas basadas en el autoconocimiento</p>
-            </div>
+    <!-- ================= ETAPA 3 ================= -->
+    <div id="etapa3" class="mt-10">
+      <h2 class="text-2xl font-semibold text-blue-700 mb-4">Etapa 3: Proyecto de Vida Personal y Social</h2>
+      <p class="mb-4 text-gray-700">
+        <strong>Objetivo del seguimiento:</strong> Fomentar la construcción de un proyecto de vida integral, que abarque metas personales, familiares, sociales y comunitarias, buscando el equilibrio entre lo académico y lo personal.
+      </p>
+      <ul class="list-disc ml-6 mb-6 text-gray-600">
+        <li>Historias de vida</li>
+        <li>Proyecto comunitario</li>
+        <li>Red de apoyo</li>
+        <li>Plan de balance personal</li>
+      </ul>
 
-            <div id="questions-etapa-3"></div>
-
-            <div class="flex justify-between mt-8">
-                <button id="prev-3" onclick="prevStage(3)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
-                    Anterior
-                </button>
-                <button id="next-3" onclick="nextQuestion(3)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl">
-                    Siguiente
-                </button>
-            </div>
+      <!-- Preguntas -->
+      <div class="mb-6">
+        <p class="font-semibold">1. ¿Qué tan claro tienes tu proyecto de vida en el ámbito personal?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et3-q1"> Muy claro</label><br>
+          <label><input type="radio" name="et3-q1"> Claro</label><br>
+          <label><input type="radio" name="et3-q1"> Poco claro</label><br>
+          <label><input type="radio" name="et3-q1"> Nada claro</label>
         </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold">2. ¿Qué tan importante es para ti contribuir a tu comunidad?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et3-q2"> Muy importante</label><br>
+          <label><input type="radio" name="et3-q2"> Importante</label><br>
+          <label><input type="radio" name="et3-q2"> Poco importante</label><br>
+          <label><input type="radio" name="et3-q2"> Nada importante</label>
+        </div>
+      </div>
     </div>
 
-    <!-- ETAPA 4 -->
-    <div id="etapa-4" class="hidden min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
-            <div class="mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-libre-red">Etapa 4 de 4</h2>
-                    <div class="text-sm text-gray-600">Pregunta <span id="q4-num">1</span> de 5</div>
-                </div>
-                <div class="bg-gray-200 rounded-full h-2 mb-4">
-                    <div id="progress-4" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
-                </div>
-                <h3 class="text-xl font-bold text-libre-black mb-2">MI OBRA DE ARTE - DEJANDO HUELLAS</h3>
-                <p class="text-gray-600 text-sm">Integra tus aprendizajes y define tu legado</p>
-            </div>
+    <!-- ================= ETAPA 4 ================= -->
+    <div id="etapa4" class="mt-10">
+      <h2 class="text-2xl font-semibold text-blue-700 mb-4">Etapa 4: Seguimiento y Evaluación</h2>
+      <p class="mb-4 text-gray-700">
+        <strong>Objetivo del seguimiento:</strong> Evaluar periódicamente el avance del estudiante en el cumplimiento de sus metas y en el desarrollo de su proyecto de vida, proponiendo ajustes cuando sea necesario.
+      </p>
+      <ul class="list-disc ml-6 mb-6 text-gray-600">
+        <li>Bitácora de avances</li>
+        <li>Reuniones periódicas</li>
+        <li>Autoevaluación y coevaluación</li>
+        <li>Informe de progreso</li>
+      </ul>
 
-            <div id="questions-etapa-4"></div>
-
-            <div class="flex justify-between mt-8">
-                <button id="prev-4" onclick="prevStage(4)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
-                    Anterior
-                </button>
-                <button id="submit-proyecto" onclick="submitProyecto()" class="bg-libre-red hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-xl">
-                    Finalizar
-                </button>
-            </div>
+      <!-- Preguntas -->
+      <div class="mb-6">
+        <p class="font-semibold">1. ¿Revisas con frecuencia tus metas y haces ajustes?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et4-q1"> Siempre</label><br>
+          <label><input type="radio" name="et4-q1"> Casi siempre</label><br>
+          <label><input type="radio" name="et4-q1"> A veces</label><br>
+          <label><input type="radio" name="et4-q1"> Nunca</label>
         </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold">2. ¿Recibes apoyo en el seguimiento de tu proyecto de vida?</p>
+        <div class="space-y-2">
+          <label><input type="radio" name="et4-q2"> Siempre</label><br>
+          <label><input type="radio" name="et4-q2"> Casi siempre</label><br>
+          <label><input type="radio" name="et4-q2"> A veces</label><br>
+          <label><input type="radio" name="et4-q2"> Nunca</label>
+        </div>
+      </div>
     </div>
 
-    <!-- RESULTADOS -->
-    <div id="resultados" class="hidden min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full text-center">
-            <div class="mb-8">
-                <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <h2 class="text-3xl font-bold text-libre-black mb-4">¡Felicitaciones!</h2>
-                <p class="text-xl text-gray-600 mb-8">Has completado tu Proyecto de Vida</p>
-            </div>
-
-            <div class="space-y-4">
-                <button onclick="downloadProyectoPDF()" class="w-full bg-libre-red hover:bg-red-700 text-white font-semibold py-4 rounded-xl">
-                    Descargar Mi Proyecto de Vida (PDF)
-                </button>
-                <button onclick="window.location.href='index.html'" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-4 rounded-xl">
-                    Volver al Inicio
-                </button>
-            </div>
-        </div>
+    <!-- Botón Final -->
+    <div class="mt-10 text-center">
+      <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded">
+        Finalizar Proyecto de Vida
+      </button>
     </div>
-
-    <script src="proyecto-vida.js"></script>
+  </div>
 </body>
 </html>
