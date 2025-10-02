@@ -411,98 +411,107 @@ class VocationalTest {
     }
 
     downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        // Título
-        doc.setFontSize(22);
-        doc.setTextColor(220, 38, 38);
-        doc.text('Test Vocacional - Universidad Libre', 20, 20);
-        
-        // Información del usuario
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text('Programa Familibre', 20, 30);
-        doc.text(`Nombre: ${this.userData.nombre}`, 20, 45);
-        doc.text(`Identificación: ${this.userData.identificacion}`, 20, 55);
-        doc.text(`Teléfono: ${this.userData.telefono}`, 20, 65);
-        doc.text(`Correo: ${this.userData.correo}`, 20, 75);
-        doc.text(`Fecha: ${new Date().toLocaleDateString('es-CO')}`, 20, 85);
-        
-        // Línea separadora
-        doc.setDrawColor(220, 38, 38);
-        doc.line(20, 95, 190, 95);
-        
-        // Resultados
-        doc.setFontSize(16);
-        doc.setTextColor(220, 38, 38);
-        doc.text('Tus Áreas de Interés', 20, 110);
-        
-        // Calcular áreas para el PDF
-        const areaScores = {};
-        Object.keys(this.questions).forEach(area => {
-            areaScores[area] = { total: 0, count: 0, name: this.areas[area] };
-        });
-        
-        this.allQuestions.forEach((q, index) => {
-            if (this.responses[index]) {
-                areaScores[q.area].total += this.responses[index];
-                areaScores[q.area].count += 1;
-            }
-        });
-        
-        Object.keys(areaScores).forEach(area => {
-            areaScores[area].average = areaScores[area].total / areaScores[area].count;
-        });
-        
-        const sortedAreas = Object.entries(areaScores)
-            .sort(([,a], [,b]) => b.average - a.average)
-            .slice(0, 3);
-        
-        // Agregar top 3 áreas
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        let yPos = 125;
-        
-        sortedAreas.forEach(([areaKey, areaData], index) => {
-            doc.setFontSize(14);
-            doc.setTextColor(30, 58, 138);
-            doc.text(`${index + 1}. ${areaData.name}`, 25, yPos);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(0, 0, 0);
-            doc.text(`Puntaje: ${areaData.average.toFixed(1)}/5`, 25, yPos + 8);
-            
-            doc.setFontSize(10);
-            doc.text('Carreras disponibles:', 25, yPos + 18);
-            
-            const careers = this.careers[areaKey];
-            careers.forEach((career, i) => {
-                doc.text(`• ${career}`, 30, yPos + 26 + (i * 6));
-            });
-            
-            yPos += 50 + (careers.length * 6);
-            
-            // Nueva página si es necesario
-            if (yPos > 250) {
-                doc.addPage();
-                yPos = 20;
-            }
-        });
-        
-        // Pie de página
-        const pageCount = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-            doc.setPage(i);
-            doc.setFontSize(8);
-            doc.setTextColor(128, 128, 128);
-            doc.text(`Universidad Libre - Programa Familibre | Página ${i} de ${pageCount}`, 
-                     105, 285, { align: 'center' });
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // ===========================
+    // 🎨 Portada con título
+    // ===========================
+    doc.setFillColor(220, 38, 38); // rojo
+    doc.rect(0, 0, 210, 40, "F"); 
+
+    doc.setFontSize(22);
+    doc.setTextColor(255, 255, 255);
+    doc.text('Test Vocacional', 105, 25, { align: 'center' });
+
+    doc.setFontSize(14);
+    doc.text('Universidad Libre - Programa Familibre', 105, 35, { align: 'center' });
+
+    // ===========================
+    // 🧑 Datos del usuario
+    // ===========================
+    doc.setFontSize(16);
+    doc.setTextColor(30, 58, 138);
+    doc.text("Datos del Estudiante", 20, 55);
+
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+
+    doc.setFillColor(245, 245, 245);
+    doc.roundedRect(15, 60, 180, 40, 3, 3, "F");
+
+    doc.text(`Nombre: ${this.userData.nombre}`, 20, 70);
+    doc.text(`Identificación: ${this.userData.identificacion}`, 20, 78);
+    doc.text(`Teléfono: ${this.userData.telefono}`, 20, 86);
+    doc.text(`Correo: ${this.userData.correo}`, 20, 94);
+    doc.text(`Fecha: ${new Date().toLocaleDateString('es-CO')}`, 150, 94);
+
+    // ===========================
+    // 📊 Resultados
+    // ===========================
+    const areaScores = {};
+    Object.keys(this.questions).forEach(area => {
+        areaScores[area] = { total: 0, count: 0, name: this.areas[area] };
+    });
+
+    this.allQuestions.forEach((q, index) => {
+        if (this.responses[index]) {
+            areaScores[q.area].total += this.responses[index];
+            areaScores[q.area].count += 1;
         }
-        
-        // Guardar PDF
-        doc.save(`Test-Vocacional-${this.userData.nombre.replace(/\s+/g, '-')}.pdf`);
+    });
+
+    Object.keys(areaScores).forEach(area => {
+        areaScores[area].average = areaScores[area].total / areaScores[area].count;
+    });
+
+    const sortedAreas = Object.entries(areaScores)
+        .sort(([,a], [,b]) => b.average - a.average)
+        .slice(0, 3);
+
+    doc.setFontSize(16);
+    doc.setTextColor(220, 38, 38);
+    doc.text("Tus Áreas de Interés", 20, 120);
+
+    // ===========================
+    // 🗂 Tabla con las áreas
+    // ===========================
+    const tableData = sortedAreas.map(([areaKey, areaData], index) => [
+        index + 1,
+        areaData.name,
+        `${areaData.average.toFixed(1)}/5`,
+        (this.careers[areaKey] || []).join(", ")
+    ]);
+
+    doc.autoTable({
+        startY: 130,
+        head: [['#', 'Área', 'Puntaje', 'Carreras sugeridas']],
+        body: tableData,
+        styles: { fontSize: 10, cellPadding: 4 },
+        headStyles: { fillColor: [220, 38, 38], textColor: 255, fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [245, 245, 245] },
+    });
+
+    // ===========================
+    // 📌 Pie de página
+    // ===========================
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(120);
+        doc.text(
+            `Universidad Libre - Programa Familibre | Página ${i} de ${pageCount}`,
+            105,
+            290,
+            { align: "center" }
+        );
     }
+
+    // Guardar PDF
+    doc.save(`Test-Vocacional-${this.userData.nombre.replace(/\s+/g, '-')}.pdf`);
+}
+
 
     restartTest() {
         this.currentQuestion = 0;

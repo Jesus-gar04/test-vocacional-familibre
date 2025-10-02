@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto de Vida - Universidad Libre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'libre-red': '#DC2626',
+                        'libre-black': '#1F2937',
+                        'familibre-light': '#87CEEB',
+                        'familibre-dark': '#1E3A8A'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+
+    <!-- ETAPA 1 -->
+    <div id="etapa-1" class="min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-libre-red">Etapa 1 de 4</h2>
+                    <div class="text-sm text-gray-600">Pregunta <span id="q1-num">1</span> de 5</div>
+                </div>
+                <div class="bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-1" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
+                </div>
+                <h3 class="text-xl font-bold text-libre-black mb-2">CONOZCO LAS DIMENSIONES DEL SER HUMANO Y LAS POTENCIALIZO</h3>
+                <p class="text-gray-600 text-sm">Reflexiona sobre tu bienestar integral en cada dimensión</p>
+            </div>
+
+            <div id="questions-etapa-1"></div>
+
+            <div class="flex justify-between mt-8">
+                <button onclick="window.location.href='index.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
+                    Volver al Inicio
+                </button>
+                <button id="next-1" onclick="nextQuestion(1)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl ml-auto">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ETAPA 2 -->
+    <div id="etapa-2" class="hidden min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-libre-red">Etapa 2 de 4</h2>
+                    <div class="text-sm text-gray-600">Pregunta <span id="q2-num">1</span> de 2</div>
+                </div>
+                <div class="bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-2" class="bg-libre-red h-2 rounded-full transition-all" style="width: 50%"></div>
+                </div>
+                <h3 class="text-xl font-bold text-libre-black mb-2">IDENTIFICO MIS BARRERAS</h3>
+                <p class="text-gray-600 text-sm">Reconoce los obstáculos y desarrolla estrategias de afrontamiento</p>
+            </div>
+
+            <div id="questions-etapa-2"></div>
+
+            <div class="flex justify-between mt-8">
+                <button id="prev-2" onclick="prevStage(2)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
+                    Anterior
+                </button>
+                <button id="next-2" onclick="nextQuestion(2)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ETAPA 3 -->
+    <div id="etapa-3" class="hidden min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-libre-red">Etapa 3 de 4</h2>
+                    <div class="text-sm text-gray-600">Pregunta <span id="q3-num">1</span> de 5</div>
+                </div>
+                <div class="bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-3" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
+                </div>
+                <h3 class="text-xl font-bold text-libre-black mb-2">CONSTRUYO MI PLAN</h3>
+                <p class="text-gray-600 text-sm">Planifica tus metas basadas en el autoconocimiento</p>
+            </div>
+
+            <div id="questions-etapa-3"></div>
+
+            <div class="flex justify-between mt-8">
+                <button id="prev-3" onclick="prevStage(3)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
+                    Anterior
+                </button>
+                <button id="next-3" onclick="nextQuestion(3)" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ETAPA 4 -->
+    <div id="etapa-4" class="hidden min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-libre-red">Etapa 4 de 4</h2>
+                    <div class="text-sm text-gray-600">Pregunta <span id="q4-num">1</span> de 5</div>
+                </div>
+                <div class="bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-4" class="bg-libre-red h-2 rounded-full transition-all" style="width: 20%"></div>
+                </div>
+                <h3 class="text-xl font-bold text-libre-black mb-2">MI OBRA DE ARTE - DEJANDO HUELLAS</h3>
+                <p class="text-gray-600 text-sm">Integra tus aprendizajes y define tu legado</p>
+            </div>
+
+            <div id="questions-etapa-4"></div>
+
+            <div class="flex justify-between mt-8">
+                <button id="prev-4" onclick="prevStage(4)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl">
+                    Anterior
+                </button>
+                <button id="submit-proyecto" onclick="submitProyecto()" class="bg-libre-red hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-xl">
+                    Finalizar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div id="resultados" class="hidden min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl w-full text-center">
+            <div class="mb-8">
+                <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-libre-black mb-4">¡Felicitaciones!</h2>
+                <p class="text-xl text-gray-600 mb-8">Has completado tu Proyecto de Vida</p>
+            </div>
+
+            <div class="space-y-4">
+                <button onclick="downloadProyectoPDF()" class="w-full bg-libre-red hover:bg-red-700 text-white font-semibold py-4 rounded-xl">
+                    Descargar Mi Proyecto de Vida (PDF)
+                </button>
+                <button onclick="window.location.href='index.html'" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-4 rounded-xl">
+                    Volver al Inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="proyecto-vida.js"></script>
+</body>
+</html>
