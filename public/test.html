@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vocacional - Universidad Libre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'libre-red': '#DC2626',
+                        'libre-black': '#1F2937',
+                        'familibre-light': '#87CEEB',
+                        'familibre-dark': '#1E3A8A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+
+    <!-- Botón de volver -->
+    <div class="absolute top-6 left-6">
+        <a href="seleccion.html" class="flex items-center text-libre-black hover:text-libre-red transition-colors">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Volver
+        </a>
+    </div>
+
+    <!-- TEST VOCACIONAL -->
+    <div class="min-h-screen p-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <div class="bg-familibre-dark p-6">
+                    <h3 class="text-2xl font-bold text-white text-center mb-4">Test de Exploración de Intereses</h3>
+                    <div class="bg-gray-300 rounded-full h-3">
+                        <div id="progress-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p id="progress-text" class="text-white text-center mt-2">Pregunta 1 de 32</p>
+                </div>
+
+                <div class="p-8">
+                    <div id="question-container"></div>
+
+                    <div class="flex justify-between mt-8">
+                        <button id="prev-btn" class="hidden bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-colors">
+                            Anterior
+                        </button>
+                        <button id="next-btn" class="bg-familibre-dark hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-xl transition-all ml-auto">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-libre-black text-white py-8 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Universidad Libre - Programa Familibre. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>

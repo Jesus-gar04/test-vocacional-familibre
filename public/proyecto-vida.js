@@ -1,7 +1,6 @@
-// Proyecto de Vida - Universidad Libre Familibre
+// proyecto-vida.js - Proyecto de Vida Universidad Libre Familibre
 
 const userData = JSON.parse(sessionStorage.getItem('userData')) || {};
-let currentStage = 1;
 let currentQuestionIndex = 0;
 const responses = {
     etapa1: {},
@@ -85,7 +84,7 @@ const questions = {
         },
         {
             dimension: 'Dimensión Emocional',
-            pregunta: '¿En qué medida tu obra de arte refleja el crecimiento en la forma en que gestionas tus emociones?',
+            pregunta: '¿En qué medida sientes que has crecido en la forma en que gestionas tus emociones?',
             opciones: ['Nada', 'Poco', 'Moderadamente', 'Mucho', 'Totalmente']
         },
         {
@@ -107,6 +106,12 @@ const questions = {
 };
 
 function init() {
+    // Verificar que hay usuario registrado
+    if (!userData.nombre) {
+        window.location.href = 'index.html';
+        return;
+    }
+    
     showQuestion(1, 0);
 }
 
@@ -191,35 +196,50 @@ function submitProyecto() {
         return;
     }
     
+    // Guardar resultados en sessionStorage
+    sessionStorage.setItem('proyectoVidaResults', JSON.stringify(responses));
+    
+    // Guardar en base de datos
     saveToDatabase();
     
+    // Ocultar etapa 4 y mostrar resultados
     document.getElementById('etapa-4').classList.add('hidden');
     document.getElementById('resultados').classList.remove('hidden');
+    
+    // Descargar PDF automáticamente
+    setTimeout(() => {
+        downloadProyectoPDF();
+    }, 500);
 }
 
 function saveToDatabase() {
     const data = {
         nombre: userData.nombre,
+        identificacion: userData.identificacion,
         correo: userData.correo,
+        telefono: userData.telefono,
         respuestas: responses,
         fecha: new Date().toISOString()
     };
     
-    fetch('https://test-vocacional-familibrev2.vercel.app/api/proyecto-vida', {
+    // Cambiar por tu URL de API cuando esté lista
+    const apiUrl = 'https://tu-proyecto.vercel.app/api/proyecto-vida';
+    
+    fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(result => console.log('Proyecto guardado:', result))
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error al guardar:', error));
 }
 
 function downloadProyectoPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Logo y encabezado
+    // Encabezado con colores institucionales
     doc.setFillColor(220, 38, 38);
     doc.rect(0, 0, 210, 40, 'F');
     
@@ -234,55 +254,67 @@ function downloadProyectoPDF() {
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(14);
     doc.text(`Nombre: ${userData.nombre}`, 20, 55);
-    doc.text(`Correo: ${userData.correo}`, 20, 65);
-    doc.text(`Fecha: ${new Date().toLocaleDateString('es-CO')}`, 20, 75);
+    doc.text(`Identificación: ${userData.identificacion}`, 20, 63);
+    doc.text(`Correo: ${userData.correo}`, 20, 71);
+    doc.text(`Teléfono: ${userData.telefono}`, 20, 79);
+    doc.text(`Fecha: ${new Date().toLocaleDateString('es-CO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    })}`, 20, 87);
     
     // Línea separadora
     doc.setDrawColor(220, 38, 38);
     doc.setLineWidth(0.5);
-    doc.line(20, 85, 190, 85);
+    doc.line(20, 95, 190, 95);
     
-    let yPos = 95;
+    let yPos = 105;
     
-    // Etapas
+    // Títulos de etapas
+    const etapaTitles = [
+        'ETAPA 1: Conozco las Dimensiones del Ser Humano',
+        'ETAPA 2: Identifico mis Barreras',
+        'ETAPA 3: Construyo mi Plan',
+        'ETAPA 4: Mi Obra de Arte - Dejando Huellas'
+    ];
+    
+    // Recorrer todas las etapas y preguntas
     Object.keys(responses).forEach((etapaKey, etapaIndex) => {
-        const etapaNum = etapaIndex + 1;
-        const etapaTitles = [
-            'CONOZCO LAS DIMENSIONES DEL SER HUMANO',
-            'IDENTIFICO MIS BARRERAS',
-            'CONSTRUYO MI PLAN',
-            'MI OBRA DE ARTE - DEJANDO HUELLAS'
-        ];
-        
         if (yPos > 250) {
             doc.addPage();
             yPos = 20;
         }
         
+        // Título de etapa
         doc.setFontSize(16);
         doc.setTextColor(220, 38, 38);
-        doc.text(`Etapa ${etapaNum}: ${etapaTitles[etapaIndex]}`, 20, yPos);
+        doc.text(etapaTitles[etapaIndex], 20, yPos);
         yPos += 10;
         
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
         
+        // Preguntas y respuestas
         questions[etapaKey].forEach((q, qIndex) => {
             if (yPos > 260) {
                 doc.addPage();
                 yPos = 20;
             }
             
+            // Dimensión
             doc.setFont(undefined, 'bold');
             doc.text(`${q.dimension}:`, 25, yPos);
             yPos += 6;
             
+            // Pregunta
             doc.setFont(undefined, 'normal');
-            const lines = doc.splitTextToSize(q.pregunta, 160);
-            doc.text(lines, 25, yPos);
-            yPos += lines.length * 6;
+            const preguntaLines = doc.splitTextToSize(q.pregunta, 160);
+            doc.text(preguntaLines, 25, yPos);
+            yPos += preguntaLines.length * 6;
             
-            const respuesta = q.opciones[responses[etapaKey][qIndex]];
+            // Respuesta
+            const respuestaIndex = responses[etapaKey][qIndex];
+            const respuesta = q.opciones[respuestaIndex];
             doc.setTextColor(30, 58, 138);
             doc.text(`Respuesta: ${respuesta}`, 25, yPos);
             doc.setTextColor(0, 0, 0);
@@ -292,17 +324,76 @@ function downloadProyectoPDF() {
         yPos += 5;
     });
     
-    // Pie de página
+    // Recomendaciones finales
+    if (yPos > 230) {
+        doc.addPage();
+        yPos = 20;
+    }
+    
+    doc.setFontSize(14);
+    doc.setTextColor(220, 38, 38);
+    doc.text('Reflexiones Finales', 20, yPos);
+    yPos += 10;
+    
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    const reflexiones = [
+        '• Mantén este documento como guía de tu crecimiento personal',
+        '• Revisa periódicamente tus metas y ajusta tu plan según sea necesario',
+        '• Recuerda que el proyecto de vida es un proceso continuo',
+        '• Busca apoyo en tu familia, amigos y mentores',
+        '• Celebra cada logro, por pequeño que sea'
+    ];
+    
+    reflexiones.forEach(ref => {
+        if (yPos > 270) {
+            doc.addPage();
+            yPos = 20;
+        }
+        doc.text(ref, 25, yPos);
+        yPos += 8;
+    });
+    
+    // Información de contacto
+    yPos += 10;
+    if (yPos > 250) {
+        doc.addPage();
+        yPos = 20;
+    }
+    
+    doc.setFontSize(12);
+    doc.setTextColor(30, 58, 138);
+    doc.text('Contacto Universidad Libre', 20, yPos);
+    yPos += 8;
+    
+    doc.setFontSize(9);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Teléfono: +57 (5) 385-8700', 25, yPos);
+    yPos += 6;
+    doc.text('Email: info@unilibrebarranquilla.edu.co', 25, yPos);
+    yPos += 6;
+    doc.text('Dirección: Km. 7 Antigua vía Puerto Colombia, Barranquilla', 25, yPos);
+    
+    // Pie de página en todas las páginas
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(8);
         doc.setTextColor(128, 128, 128);
-        doc.text('Universidad Libre - Programa Familibre', 105, 285, { align: 'center' });
-        doc.text(`Página ${i} de ${pageCount}`, 105, 290, { align: 'center' });
+        doc.text(
+            `Universidad Libre - Programa Familibre | Página ${i} de ${pageCount}`, 
+            105, 
+            285, 
+            { align: 'center' }
+        );
     }
     
-    doc.save(`Proyecto-de-Vida-${userData.nombre.replace(/\s+/g, '-')}.pdf`);
+    // Generar nombre del archivo
+    const fileName = `Proyecto-de-Vida-${userData.nombre.replace(/\s+/g, '-')}-${new Date().getTime()}.pdf`;
+    
+    // Guardar PDF
+    doc.save(fileName);
 }
 
+// Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', init);

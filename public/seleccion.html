@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Módulos - Universidad Libre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'libre-red': '#DC2626',
+                        'libre-black': '#1F2937',
+                        'familibre-light': '#87CEEB',
+                        'familibre-dark': '#1E3A8A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+
+    <!-- Botón de nuevo registro -->
+    <div class="absolute top-6 left-6">
+        <a href="index.html" onclick="sessionStorage.clear()" class="flex items-center text-libre-black hover:text-libre-red transition-colors">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Nuevo Registro
+        </a>
+    </div>
+
+    <!-- SELECCIÓN DE MÓDULOS -->
+    <div class="min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-4xl w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-libre-black mb-4">Bienvenido, <span id="user-name"></span></h1>
+                <p class="text-xl text-gray-600">Selecciona el módulo que deseas explorar</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mi Proyecto de Vida -->
+                <a href="proyecto-de-vida.html" class="bg-white rounded-3xl shadow-2xl p-12 hover:shadow-3xl transition-all transform hover:scale-105 cursor-pointer block">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-familibre-dark rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-libre-black mb-4">Mi Proyecto de Vida</h2>
+                        <p class="text-gray-600">Define tu camino personal y profesional</p>
+                    </div>
+                </a>
+
+                <!-- Exploración de Intereses -->
+                <a href="test.html" class="bg-white rounded-3xl shadow-2xl p-12 hover:shadow-3xl transition-all transform hover:scale-105 cursor-pointer block">
+                    <div class="text-center">
+                        <div class="w-24 h-24 bg-libre-red rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-libre-black mb-4">Exploración de Intereses</h2>
+                        <p class="text-gray-600">Descubre tus áreas vocacionales</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-libre-black text-white py-8 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Universidad Libre - Programa Familibre. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script>
+        // Cargar nombre del usuario desde sessionStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+            if (userData.nombre) {
+                document.getElementById('user-name').textContent = userData.nombre;
+            } else {
+                // Si no hay datos, redirigir al registro
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

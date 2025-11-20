@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados - Test Vocacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'libre-red': '#DC2626',
+                        'libre-black': '#1F2937',
+                        'familibre-light': '#87CEEB',
+                        'familibre-dark': '#1E3A8A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+
+    <!-- RESULTADOS -->
+    <div class="min-h-screen p-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-libre-black mb-4">Tus Resultados</h2>
+                <p class="text-xl text-gray-600">Áreas que mejor se adaptan a tu perfil</p>
+            </div>
+
+            <!-- Gráfico de Radar -->
+            <div class="bg-white rounded-3xl shadow-2xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-libre-black mb-6 text-center">Tu Perfil Vocacional</h3>
+                <div class="max-w-md mx-auto">
+                    <canvas id="results-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Áreas Top -->
+            <div id="top-areas-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"></div>
+
+            <!-- Botones de Acción -->
+            <div class="text-center space-y-4">
+                <div class="space-x-4">
+                    <a href="seleccion.html" class="inline-block bg-familibre-light hover:bg-blue-300 text-familibre-dark font-semibold py-3 px-8 rounded-xl transition-all">
+                        Volver a Módulos
+                    </a>
+                    <button id="download-pdf-btn" class="bg-libre-red hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-xl transition-all">
+                        Descargar PDF
+                    </button>
+                </div>
+                <div>
+                    <a href="index.html" onclick="sessionStorage.clear()" class="inline-block bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-xl transition-all">
+                        Nuevo Registro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-libre-black text-white py-8 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Universidad Libre - Programa Familibre. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="resultados.js"></script>
+</body>
+</html>
